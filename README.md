@@ -1,6 +1,6 @@
 # Simple Web
-Aqui os dejo una web bastante simple.
-Lenguajes usados:
+Here i push a very simple web
+Languajes used
  Html
  Css
  Vue
