@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Sanchez | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <nav>
+                <div class="logo">{{ siteInfo.name }}</div>
+                <div class="nav-links" :class="{ active: mobileMenuOpen }">
+                    <a v-for="link in navLinks" 
+                       :key="link.url" 
+                       :href="link.url" 
+                       :class="{ active: link.isActive }"
+                       @click="mobileMenuOpen = false">
+                        {{ link.text }}
+                    </a>
+                </div>
+                <div class="menu-button" @click="toggleMobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>{{ siteInfo.fullName }}</h1>
+                    <h2>{{ siteInfo.title }}</h2>
+                    <p>{{ siteInfo.description }}</p>
+                    <div class="social-links">
+                        <a v-for="social in socialLinks" :key="social.url" :href="social.url" target="_blank" :title="social.name">
+                            <i :class="social.icon"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img :src="siteInfo.profileImage" alt="Profile Image">
+                </div>
+            </div>
+            <div class="scroll-down" @click="document.querySelector('#projects').scrollIntoView({behavior: 'smooth'})">
+                <span>Ver proyectos</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <section class="skills" id="skills">
+            <div class="container">
+                <h2>Habilidades</h2>
+                <p class="subtitle">Mi conjunto de herramientas tecnológicas está en constante evolución, aquí hay algunas tecnologías con las que trabajo regularmente.</p>
+                <div class="skills-grid">
+                    <div v-for="skill in skills" :key="skill.name" class="skill-card" style="opacity: 0; transform: translateY(30px); transition: all 0.5s ease;">
+                        <i :class="skill.icon"></i>
+                        <h3>{{ skill.name }}</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>Contacto</h2>
+                <p class="subtitle">¿Interesado en trabajar juntos? Contáctame a través de cualquiera de estos canales.</p>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <a href="mailto:pablo@pablosanchez.dev"></a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-discord"></i>
+                        <h3>Discord</h3>
+                        <a href="https://linkedin.com/in/sanncheezDev" target="_blank"></a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/pablosanchezdev" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; {{ new Date().getFullYear() }} {{ siteInfo.name }}. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="#home">Inicio</a>
+                    <a href="#projects">Proyectos</a>
+                    <a href="#skills">Habilidades</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+                <p>Diseñado y desarrollado por {{ siteInfo.fullName }}</p>
+            </div>
+            <div class="back-to-top" @click="scrollToTop">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
