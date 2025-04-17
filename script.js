@@ -34,17 +34,13 @@ createApp({
     mounted() {
         this.applyInitialAnimations();
         
-        // Usar un evento de scroll con throttling
         window.addEventListener('scroll', this.handleScrollThrottled);
         
-        // Configurar IntersectionObserver una vez
         this.setupScrollAnimations();
-        
-        // Aplicar estado activo inicial
+
         this.updateActiveNavLink();
     },
     beforeUnmount() {
-        // Limpiar eventos para evitar memory leaks
         window.removeEventListener('scroll', this.handleScrollThrottled);
     },
     methods: {
@@ -53,7 +49,6 @@ createApp({
             document.querySelector('.menu-button').classList.toggle('active');
         },
         handleScrollThrottled() {
-            // Throttling para evitar demasiadas llamadas durante el scroll
             if (!this.scrollTicking) {
                 window.requestAnimationFrame(() => {
                     this.handleScroll();
@@ -99,13 +94,11 @@ createApp({
             });
         },
         setupScrollAnimations() {
-            // Configurar IntersectionObserver con un threshold bajo
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                         
-                        // Animar los elementos de la sección cuando se vuelva visible
                         const elements = entry.target.querySelectorAll('.project-card, .skill-card');
                         elements.forEach(el => {
                             el.style.opacity = '1';
@@ -117,20 +110,17 @@ createApp({
                 threshold: 0.05, 
                 rootMargin: '0px 0px -50px 0px' 
             });
-            
-            // Observar todas las secciones
+
             document.querySelectorAll('section').forEach(section => {
                 observer.observe(section);
             });
         },
         applyInitialAnimations() {
-            // Hacer visible inmediatamente la sección hero para evitar animaciones innecesarias al cargar
             const heroSection = document.querySelector('.hero');
             if (heroSection) {
                 heroSection.classList.add('visible');
             }
-            
-            // Mostrar las tarjetas visibles inmediatamente
+
             document.querySelectorAll('.project-card, .skill-card').forEach(el => {
                 if (el.closest('section.visible')) {
                     el.style.opacity = '1';
